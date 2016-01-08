@@ -242,6 +242,10 @@ if ( ! class_exists( 'BEWPI_Abstract_Invoice' ) ) {
 	     * @return string
 	     */
 	    protected function save( $dest, $html_templates ) {
+		    // switch WPML order language due to compatibility
+		    $order_language = get_post_meta( $this->order->id, 'wpml_language', true );
+		    do_action( 'wpml_switch_language', $order_language );
+		    
 		    $this->number               = $this->get_next_invoice_number();
 		    $this->formatted_number     = $this->get_formatted_number();
 		    $this->filename             = $this->formatted_number . '.pdf';
